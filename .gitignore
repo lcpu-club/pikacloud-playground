@@ -1,1 +1,4 @@
 .vagrant/
+
+cluster-shared/*
+!cluster-shared/.gitkeep
