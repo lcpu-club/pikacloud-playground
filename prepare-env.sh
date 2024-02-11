@@ -30,6 +30,7 @@ sudo sed -e 's|^metalink=|#metalink=|g' \
 dnf update -y
 
 # disbale selinux
+dnf install -y centos-release-ceph-reef
 dnf install -y grubby ceph postgresql-server glibc-all-langpacks
 grubby --update-kernel ALL --args selinux=0
 
