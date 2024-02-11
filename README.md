@@ -2,6 +2,8 @@
 
 This repo provides a playground for [PikaCloud](https://github.com/lcpu-club/pikacloud). Setting up a physical cluster can be time-consuming and expensive, so we use Vagrant to create a virtual cluster. This allows us to develop PikaCloud without needing to invest in hardware.
 
+Warning: Never use this in production. This is only for development and testing purposes. THIS IS NOT SECURE.
+
 ## Overview
 
 ### Virtual Cluster Layout
@@ -31,7 +33,6 @@ We'll also need some plugins for Vagrant. Install the following:
 ```bash
 vagrant plugin install vagrant-cachier
 vagrant plugin install vagrant-hostmanager
-vagrant plugin install vagrant-scp
 ```
 
 
@@ -40,13 +41,13 @@ vagrant plugin install vagrant-scp
 Since the admin machine will need the Vagrant SSH key to log into the server machines, we need to add it to our local SSH agent:
 
 On Mac:
-```console
-$ ssh-add -K ~/.vagrant.d/insecure_private_key
+```bash
+ssh-add -K ~/.vagrant.d/insecure_private_key
 ```
 
 On \*nix:
-```console
-$ ssh-add -k ~/.vagrant.d/insecure_private_key
+```bash
+ssh-add -k ~/.vagrant.d/insecure_private_key
 ```
 
 ## Start the VMs
@@ -98,6 +99,13 @@ to complete the installation.
 - [ ] Deploy PostgreSQL cluster
 
 ## Troubleshoot
+
+### ssh-add: Could not open a connection to your authentication agent
+
+If you see this error, you need to start the SSH agent. If it doesn't work, you'd better use bash instead of zsh or fish.
+```bash
+eval `ssh-agent`
+```
 
 ### Vagrant-related issues
 
