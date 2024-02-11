@@ -21,6 +21,9 @@ rm -f /tmp/etcd-${ETCD_VER}-linux-amd64.tar.gz
 
 mv /tmp/etcd-download-test/etc* /usr/bin/
 
+# workaround for selinux
+restorecon -rv /usr/bin
+
 if [ ! -d /var/lib/etcd ]; then
     mkdir -p /var/lib/etcd
 fi
