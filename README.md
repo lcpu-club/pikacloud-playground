@@ -97,6 +97,8 @@ to complete the installation.
 ## Next Steps
 
 - [ ] Deploy PostgreSQL cluster
+- [ ] Deploy ETCD cluster
+- [ ] Deploy PikaCloud
 
 ## Troubleshoot
 
