@@ -10,7 +10,7 @@ cp -R /vagrant/ceph/* /etc/ceph
 cp /vagrant/ceph-bootstrap-osd.keyring /var/lib/ceph/bootstrap-osd/ceph.keyring
 
 for disk in $(lsblk -dno NAME,TYPE | grep -w disk | awk '{print $1}'); do
-  partitions=$(lsblk -no NAME | grep "^${disk}[0-9]")
+  partitions=$(lsblk -no NAME | grep "${disk}[0-9]")
   if [ -z "$partitions" ]; then
     osd_disk="$disk"
   fi
