@@ -1,8 +1,6 @@
 #!/usr/bin/bash
 
 echo "Deploying etcd..."
-IP_ADDR=$(ip addr | grep -o "192.168.56.1[0-9]")
-SERVER_NUM=$(ip addr | grep -oP "192.168.56.1\K\d+")
 
 ETCD_VER=v3.5.12
 # choose either URL
@@ -45,17 +43,17 @@ TimeoutStartSec=0
 # https://blog.csdn.net/lengyue1084/article/details/116090035
 # https://blog.csdn.net/weixin_42216109/article/details/113617833
 # ,pkucloud-server-2=http://192.168.56.12:2380,pkucloud-server-3=http://192.168.56.13:2380
-ExecStart=/usr/bin/etcd --name server-${SERVER_NUM} \
+ExecStart=/usr/bin/etcd --name mgt \
     --data-dir /var/lib/etcd \
-    --listen-peer-urls="http://${IP_ADDR}:2380" \
-    --listen-client-urls="http://localhost:2379,http://${IP_ADDR}:2379" \
-    --initial-advertise-peer-urls http://${IP_ADDR}:2380 \
+    --listen-peer-urls="http://192.168.56.10:2380" \
+    --listen-client-urls="http://localhost:2379,http://192.168.56.10:2379" \
+    --initial-advertise-peer-urls="http://192.168.56.10:2380" \
     --initial-cluster mgt=http://192.168.56.10:2380,server-1=http://192.168.56.11:2380,server-2=http://192.168.56.12:2380,server-3=http://192.168.56.13:2380 \
-    --listen-peer-urls="http://${IP_ADDR}:2380" \
     --initial-cluster-state=new \
     --initial-cluster-token=etcd-cluster-1 \
-    --advertise-client-urls="http://${IP_ADDR}:2379" \
+    --advertise-client-urls="http://192.168.56.10:2379" \
     --enable-v2=true
+
 
 [Install]
 WantedBy=multi-user.target
@@ -64,3 +62,5 @@ EOF
 systemctl daemon-reload
 systemctl enable etcd
 systemctl start etcd &
+
+

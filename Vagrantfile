@@ -20,8 +20,8 @@ Vagrant.configure("2") do |config|
     admin.vm.network :private_network, ip: "192.168.56.10"
     admin.vm.provision "shell", path: "prepare-env.sh", privileged: true
     admin.vm.provision "shell", path: "deploy-ceph-mgt.sh", privileged: true
-    admin.vm.provision "shell", path: "deploy-psql.sh", privileged: true
-    admin.vm.provision "shell", path: "deploy-etcd-mgr.sh", privileged: true
+    admin.vm.provision "shell", path: "deploy-etcd-mgt.sh", privileged: true
+    admin.vm.provision "shell", path: "deploy-psql-mgt.sh", privileged: true
     admin.vm.disk :disk, size: "40GB", name: "mgt"
 
   end
@@ -44,8 +44,9 @@ Vagrant.configure("2") do |config|
       server.vm.disk :disk, size: "20GB", name: "ceph_storage"
 
       server.vm.provision "shell", path: "prepare-env.sh", privileged: true
-      server.vm.provision "shell", path: "deploy-etcd-server.sh", privileged: true
       server.vm.provision "shell", path: "deploy-ceph-server.sh", privileged: true
+      server.vm.provision "shell", path: "deploy-etcd-server.sh", privileged: true
+      server.vm.provision "shell", path: "deploy-psql-server.sh", privileged: true
     end
   end
 

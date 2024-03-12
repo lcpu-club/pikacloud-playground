@@ -32,6 +32,10 @@ dnf update -y
 # disbale selinux
 dnf install -y centos-release-ceph-reef
 dnf install -y grubby ceph postgresql-server glibc-all-langpacks
+dnf install -y python3-pip python3-devel postgresql-devel
+pip3 install --upgrade pip
+pip install patroni[psycopg3,etcd3]
+dnf install -y haproxy keepalived
 grubby --update-kernel ALL --args selinux=0
 
 # disable firewalld
